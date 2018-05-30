@@ -154,9 +154,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GarageContext.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehiclesController.cs" />
+    <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

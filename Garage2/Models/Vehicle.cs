@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Garage2.Models {
     public class Vehicle {
+        public int Id { get; set; }
         public VehicleType Type { get; set; }
         public string LicensePlate { get; set; }
         public string Color { get; set; }

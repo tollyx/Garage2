@@ -8,6 +8,6 @@ namespace Garage2.Models {
     public class GarageContext : DbContext {
         public GarageContext() : base("GarageContext") { }
 
-        DbSet<Vehicle> Vehicles;
+        public DbSet<Vehicle> Vehicles { get; set; }
     }
 }

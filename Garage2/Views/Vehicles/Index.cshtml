@@ -21,22 +21,17 @@
             @Html.DisplayNameFor(model => model.Color)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WheelAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckInTime)
+            Parking time
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        @{ 
+            var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
+        }
+
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
@@ -47,16 +42,12 @@
             @Html.DisplayFor(modelItem => item.Color)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Brand)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WheelAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckInTime)
+            @if (Duration.Days > 0)
+            {
+                <span>@Duration.Days days, </span>
+            }
+
+            @Duration.Hours hours, @Duration.Minutes minutes
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -16,7 +16,8 @@ namespace Garage2.Models
         // GET: Vehicles
         public ActionResult Index()
         {
-            return View(db.Vehicles.ToList());
+            ViewBag.Now = DateTime.Now;
+            return View(db.Vehicles.OrderBy(v => v.CheckInTime).ToList());
         }
 
         // GET: Vehicles/Details/5

@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<br />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+     @Html.ActionLink("Park a new vehicle", "Create")
 </p>
 <table class="table">
     <tr>
@@ -46,15 +46,15 @@
         <td>
             @if (Duration.Days > 0)
             {
-                <span>@Duration.Days days, </span>
+            <span>@Duration.Days days, </span>
             }
 
-            @Duration.Hours hours, @Duration.Minutes minutes
-        </td>
+            <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
+</td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Drive out", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

@@ -1,0 +1,102 @@
+﻿@model Garage2.Models.Vehicle
+
+@{
+    ViewBag.Title = "Receipt";
+}
+
+<span style="color:#0094ff"> <h2>Receipt</h2> </span>
+
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicensePlate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicensePlate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WheelAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WheelAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckInTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckInTime)
+        </dd>
+
+        <dt>
+            Duration Vehicle Parked
+        </dt>
+
+        <dd>
+            @if (ViewBag.Duration.Days > 0)
+
+            {
+                <span>@ViewBag.Duration.Days days, </span>
+            }
+
+            <span style="color:#ff6a00"> @ViewBag.Duration.Hours hours, @ViewBag.Duration.Minutes minutes</span>
+        </dd>
+
+
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @ViewBag.Price
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+

@@ -9,6 +9,7 @@
 <p>
      @Html.ActionLink("Park a new vehicle", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -54,7 +55,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Drive out", "Drive out", new { id = item.Id }) |
+            @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) |
             @Html.ActionLink("Receipt", "Receipt", new { id = item.Id })
         </td>
     </tr>

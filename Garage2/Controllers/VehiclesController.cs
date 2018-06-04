@@ -14,10 +14,52 @@ namespace Garage2.Models
         private GarageContext db = new GarageContext();
 
         // GET: Vehicles
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+
             ViewBag.Now = DateTime.Now;
-            return View(db.Vehicles.OrderBy(v => v.CheckInTime).ToList());
+            
+            ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
+            ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";
+            ViewBag.VehicleColorSortParm = sortOrder == "Color" ? "color_desc" : "Color";
+            ViewBag.VehicleParkingSortParm = sortOrder == "checkInTime_desc" ? "CheckInTime" : "checkInTime_desc";
+
+            var vehicles = from v in db.Vehicles
+                           select v;
+
+            switch (sortOrder)
+            {
+                case "CheckInTime":
+                    vehicles = vehicles.OrderBy(v => v.CheckInTime);
+                    break;
+                case "checkInTime_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.CheckInTime);
+                    break;
+                case "Type":
+                    vehicles = vehicles.OrderBy(v => v.Type);
+                    break;
+                case "type_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Type);
+                    break;
+                case "LicensePlate":
+                    vehicles = vehicles.OrderBy(v => v.LicensePlate);
+                    break;
+                case "licensePlate_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.LicensePlate);
+                    break;
+                case "Color":
+                    vehicles = vehicles.OrderBy(v => v.Color);
+                    break;
+                case "color_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Color);
+                    break;
+
+                default:
+                    vehicles = vehicles.OrderBy(v => v.CheckInTime);
+                    break;
+            }
+
+            return View(vehicles.ToList());
         }
 
         // GET: Vehicles/Details/5
@@ -117,14 +159,14 @@ namespace Garage2.Models
         }
 
         public ActionResult Receipt(int? id)
-        { 
-            
+        {
+
             Vehicle vehicle = db.Vehicles.Find(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-             vehicle = db.Vehicles.Find(id);
+            vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return HttpNotFound();

@@ -160,6 +160,10 @@
     <Compile Include="Migrations\201805301332509_InitialCreate.Designer.cs">
       <DependentUpon>201805301332509_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806041231541_MigrationName.cs" />
+    <Compile Include="Migrations\201806041231541_MigrationName.Designer.cs">
+      <DependentUpon>201806041231541_MigrationName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GarageContext.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -264,6 +268,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805301332509_InitialCreate.resx">
       <DependentUpon>201805301332509_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041231541_MigrationName.resx">
+      <DependentUpon>201806041231541_MigrationName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

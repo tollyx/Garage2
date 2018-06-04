@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace Garage2.Models {
         [DisplayName("Vehicle type")]
         public VehicleType Type { get; set; }
         [DisplayName("License plate")]
+        [StringLength(6, ErrorMessage = "6 character! and the three first shoud be Alphabet", MinimumLength = 6)]
         public string LicensePlate { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }

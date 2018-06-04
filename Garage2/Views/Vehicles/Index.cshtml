@@ -12,52 +12,53 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.ActionLink("Vehicle type", "Index", new { sortOrder = ViewBag.VehicleTypeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LicensePlate)
+            @Html.ActionLink("License plate", "Index", new { sortOrder = ViewBag.VehicleLicensePlateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
+            @Html.ActionLink("Color", "Index", new { sortOrder = ViewBag.VehicleColorSortParm })
         </th>
         <th>
-            Parking time
+            @Html.ActionLink("Parking time", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
+           
         </th>
-        <th></th>
-    </tr>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        @{ 
-            var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
-        }
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LicensePlate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-
-
-        <td>
-            @if (Duration.Days > 0)
-            {
-            <span>@Duration.Days days, </span>
+    @foreach (var item in Model) {
+        <tr>
+            @{
+                var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
             }
 
-            <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
-       </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) |
-            @Html.ActionLink("Receipt", "Receipt", new { id = item.Id })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicensePlate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
 
-</table>
+
+            <td>
+                @if (Duration.Days > 0)
+                {
+                <span>@Duration.Days days, </span>
+                }
+
+                <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
+           </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Receipt", "Receipt", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>

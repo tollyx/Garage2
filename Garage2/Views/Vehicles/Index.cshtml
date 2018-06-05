@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Garage2.Models.Vehicle>
 
 @{
-    ViewBag.Title = "Index";
+                /**/
+
+                ViewBag.Title = "Index";
 }
 
 <br />
@@ -9,56 +11,59 @@
     @Html.ActionLink("Park a new vehicle", "Create")
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Vehicle type", "Index", new { sortOrder = ViewBag.VehicleTypeSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("License plate", "Index", new { sortOrder = ViewBag.VehicleLicensePlateSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Color", "Index", new { sortOrder = ViewBag.VehicleColorSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Parking time", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
-           
-        </th>
+<input id="filterInput" type="text" placeholder="Filter" />
+<table id="vehicleTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Vehicle type", "Index", new { sortOrder = ViewBag.VehicleTypeSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("License plate", "Index", new { sortOrder = ViewBag.VehicleLicensePlateSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Color", "Index", new { sortOrder = ViewBag.VehicleColorSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Parking time", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
+            </th>
             <th></th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr class="vehiclerow">
+    @{
+                        /**/
 
-    @foreach (var item in Model) {
-        <tr>
-            @{
-                var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
-            }
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LicensePlate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-
-
-            <td>
-                @if (Duration.Days > 0)
-                {
-                <span>@Duration.Days days, </span>
-                }
-
-                <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
-           </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Receipt", "Receipt", new { id = item.Id })
-            </td>
-        </tr>
+                        var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
     }
+    <td>
+        @Html.DisplayFor(modelItem => item.Type)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LicensePlate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Color)
+    </td>
+    <td>
+        @if (Duration.Days > 0)
+        {
+<span>@Duration.Days days, </span>
+}
+        <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) |
+        @Html.ActionLink("Receipt", "Receipt", new { id = item.Id })
+    </td>
+</tr>
+}
+    </tbody>
+</table>
 
-    </table>
+<script src="~/Scripts/TableFilter.js"></script>

@@ -5,18 +5,9 @@
 }
 
 <br />
-
 <p>
     @Html.ActionLink("Park a new vehicle", "Create")
 </p>
-
-@using (Html.BeginForm())
-{
-    <p>
-        Find by license plate: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
 
 <table class="table">
     <tr>
@@ -31,13 +22,12 @@
         </th>
         <th>
             @Html.ActionLink("Parking time", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
-
+           
         </th>
-        <th></th>
-    </tr>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             @{
                 var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
@@ -57,11 +47,11 @@
             <td>
                 @if (Duration.Days > 0)
                 {
-                    <span>@Duration.Days days, </span>
+                <span>@Duration.Days days, </span>
                 }
 
                 <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
-            </td>
+           </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
@@ -71,4 +61,4 @@
         </tr>
     }
 
-</table>
+    </table>

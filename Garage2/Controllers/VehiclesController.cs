@@ -26,6 +26,7 @@ namespace Garage2.Models
 
             var vehicles = from v in db.Vehicles
                            select v;
+         
 
             switch (sortOrder)
             {

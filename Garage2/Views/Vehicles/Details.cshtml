@@ -15,7 +15,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Type.Name)<br />
+            Size: @Html.DisplayFor(model => model.Type.Size)
         </dd>
 
         <dt>
@@ -66,6 +67,16 @@
             @Html.DisplayFor(model => model.CheckInTime)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.Name)<br />
+            Email: @Html.DisplayFor(model => model.Owner.Email)<br />
+            Phone: @Html.DisplayFor(model => model.Owner.PhoneNumber)<br />
+            Registered since: @Html.DisplayFor(model => model.Owner.RegisterDate)
+        </dd>
     </dl>
 </div>
 <p>

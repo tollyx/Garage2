@@ -22,6 +22,7 @@ namespace Garage2.Models {
         [DisplayName("Number of wheels")]
         [Range(0, 10)]
         public int WheelAmount { get; set; }
+        [DisplayName("Check in time")]
         public DateTime CheckInTime { get; set; }
     }
 }

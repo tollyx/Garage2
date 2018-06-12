@@ -9,8 +9,9 @@ namespace Garage2.Models {
     public class Vehicle {
         [Key]
         public int Id { get; set; }
+        public virtual Member Owner { get; set; }
         [DisplayName("Vehicle type")]
-        public VehicleType Type { get; set; }
+        public virtual VehicleType Type { get; set; }
         [DisplayName("License plate")]
         [StringLength(6, ErrorMessage = "6 character! and the three first shoud be Alphabet", MinimumLength = 6)]
         public string LicensePlate { get; set; }
@@ -22,12 +23,5 @@ namespace Garage2.Models {
         [Range(0, 10)]
         public int WheelAmount { get; set; }
         public DateTime CheckInTime { get; set; }
-    }
-
-    public enum VehicleType {
-        Boat,
-        Car,
-        MotorCycle,
-        Plane,
     }
 }

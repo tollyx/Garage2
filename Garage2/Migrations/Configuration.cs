@@ -9,7 +9,7 @@ namespace Garage2.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Garage2.Models.GarageContext";
         }
 

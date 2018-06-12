@@ -36,11 +36,12 @@ namespace Garage2.Migrations
                 new Member {Name = "Lisa", PhoneNumber = "08-6001020", Email = "lisa_mail@hotmail.com", RegisterDate = DateTime.Now.AddDays(-10)},
             };
 
-            context.VehicleTypes.AddOrUpdate(vt => vt.Id, vehicleTypes);
+            context.Members.AddOrUpdate(m => m.Name, members);
+            context.VehicleTypes.AddOrUpdate(vt => vt.Name, vehicleTypes);
 
             context.SaveChanges();
             
-            context.Vehicles.AddOrUpdate(v => v.Id,
+            context.Vehicles.AddOrUpdate(v => v.LicensePlate,
                 new Vehicle { Owner = members[1], Type = vehicleTypes[1], LicensePlate = "HFG123", Color = "Red", Brand = "Benz", Model = "C200", WheelAmount = 4, CheckInTime = DateTime.Now },
                 new Vehicle { Owner = members[0], Type = vehicleTypes[0], LicensePlate = "PKL347", Color = "Blue", Brand = "Titanic", Model = "RC3000", WheelAmount = 0, CheckInTime = DateTime.Now.AddHours(-2) },
                 new Vehicle { Owner = members[3], Type = vehicleTypes[3], LicensePlate = "CDR986", Color = "Green", Brand = "AirBus", Model = "JT1000", WheelAmount = 3, CheckInTime = DateTime.Now.AddMinutes(-20) },

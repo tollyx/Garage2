@@ -81,6 +81,9 @@ namespace Garage2.Models
         // GET: Vehicles/Create
         public ActionResult Create()
         {
+            ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
+            ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
+
             return View();
         }
 
@@ -89,10 +92,12 @@ namespace Garage2.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,LicensePlate,Color,Brand,Model,WheelAmount,CheckInTime")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "LicensePlate,Color,Brand,Model,WheelAmount,CheckInTime")] Vehicle vehicle, String Owner, String Type)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
             {
+                vehicle.Owner = db.Members.First(m => m.Id == ownerId);
+                vehicle.Type = db.VehicleTypes.First(t => t.Id == typeId);
                 vehicle.CheckInTime = DateTime.Now;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();

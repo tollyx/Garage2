@@ -35,7 +35,7 @@
                     var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
                 }
                 <td>
-                    @Html.DisplayFor(modelItem => item.Type)
+                    @Html.DisplayFor(modelItem => item.Type.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LicensePlate)

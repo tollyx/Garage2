@@ -20,8 +20,8 @@ namespace Garage2.Models
             ViewBag.Now = DateTime.Now;
             
             ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
+            ViewBag.VehicleOwnerSortParm = sortOrder == "Owner" ? "owner_desc" : "Owner";
             ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";
-            ViewBag.VehicleColorSortParm = sortOrder == "Color" ? "color_desc" : "Color";
             ViewBag.VehicleParkingSortParm = sortOrder == "checkInTime_desc" ? "CheckInTime" : "checkInTime_desc";
 
             var vehicles = from v in db.Vehicles
@@ -37,22 +37,22 @@ namespace Garage2.Models
                     vehicles = vehicles.OrderByDescending(v => v.CheckInTime);
                     break;
                 case "Type":
-                    vehicles = vehicles.OrderBy(v => v.Type);
+                    vehicles = vehicles.OrderBy(v => v.Type.Name);
                     break;
                 case "type_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.Type);
+                    vehicles = vehicles.OrderByDescending(v => v.Type.Name);
+                    break;
+                case "Owner":
+                    vehicles = vehicles.OrderBy(v => v.Owner.Name);
+                    break;
+                case "owner_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Owner.Name);
                     break;
                 case "LicensePlate":
                     vehicles = vehicles.OrderBy(v => v.LicensePlate);
                     break;
                 case "licensePlate_desc":
                     vehicles = vehicles.OrderByDescending(v => v.LicensePlate);
-                    break;
-                case "Color":
-                    vehicles = vehicles.OrderBy(v => v.Color);
-                    break;
-                case "color_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.Color);
                     break;
 
                 default:

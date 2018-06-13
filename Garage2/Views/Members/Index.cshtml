@@ -1,14 +1,10 @@
-﻿@{
-    var pageName = "Members";
-}
-
-@model IEnumerable<Garage2.Models.Member>
+﻿@model IEnumerable<Garage2.Models.Member>
 
 @{
-    ViewBag.Title = @pageName;
+    ViewBag.Title = "Members";
 }
 
-<h2>@pageName</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Add member", "Create")

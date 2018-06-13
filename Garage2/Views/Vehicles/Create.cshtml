@@ -1,14 +1,10 @@
-﻿@{
-    var pageName = "Park a new vehicle";
-}
-
-@model Garage2.Models.Vehicle
+﻿@model Garage2.Models.Vehicle
 
 @{
-    ViewBag.Title = @pageName;
+    ViewBag.Title = "Park a new vehicle";
 }
 
-<h2>@pageName</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())

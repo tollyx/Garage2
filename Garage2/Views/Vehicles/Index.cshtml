@@ -38,18 +38,16 @@
                 var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
             }
             <td>
-                @Html.DisplayFor(modelItem => item.Type.Name)
-            </td>
-
-            <td>
                 @Html.DisplayFor(modelItem => item.Owner.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LicensePlate)
             </td>
             <td>
-                @if (Duration.Days > 0)
-                {
+                @if (Duration.Days > 0) {
                     <span style="color:#ff6a00">@Duration.Days days</span>
                 }
                 <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
@@ -57,7 +55,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Drive out", "Delete", new { id = item.Id }) 
+                @Html.ActionLink("Drive out", "Delete", new { id = item.Id })
             </td>
         </tr>
         }

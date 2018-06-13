@@ -29,8 +29,6 @@
             </th>
             <th>
                 @Html.ActionLink("Pay status", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
-
-
             </th>
         </tr>
     </thead>
@@ -57,15 +55,9 @@
                 <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
             </td>
 
-
-
             <td>
-
-
                 @((((DateTime)ViewBag.Now - item.CheckInTime).TotalHours * (float)ViewBag.PricePerHour).ToString("0.00")) SEK
-
             </td>
-           
             
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

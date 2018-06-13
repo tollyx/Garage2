@@ -24,7 +24,7 @@ namespace Garage2.Migrations
             var vehicleTypes = new[] {
                 new VehicleType {Name = "Boat", Size = 1},
                 new VehicleType {Name = "Car", Size = 1},
-                new VehicleType {Name = "MotorCycle", Size = 0.5f},
+                new VehicleType {Name = "Motorcycle", Size = 0.5f},
                 new VehicleType {Name = "Plane", Size = 2}
             };
 

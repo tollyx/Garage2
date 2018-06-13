@@ -109,6 +109,13 @@ namespace Garage2.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CanDelete = false;
+
+            if (db.Vehicles.All(v => v.Owner.Id != member.Id)) {
+                ViewBag.CanDelete = true;
+            }
+
             return View(member);
         }
 
@@ -118,6 +125,12 @@ namespace Garage2.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Member member = db.Members.Find(id);
+
+            if (db.Vehicles.Any(v => v.Owner.Id == member.Id)) {
+                ViewBag.CanDelete = false;
+                return View(member);
+            }
+
             db.Members.Remove(member);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -4,7 +4,7 @@
     ViewBag.Title = "Receipt";
 }
 
-<span style="color:#0094ff"> <h2>Receipt</h2> </span>
+  <h2>Receipt</h2>
 
 
 <div>
@@ -89,7 +89,7 @@
         </dt>
 
         <dd>
-            @ViewBag.Price
+            @ViewBag.Price.ToString("0.00") SEK
         </dd>
     </dl>
 </div>

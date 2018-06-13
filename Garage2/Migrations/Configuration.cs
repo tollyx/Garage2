@@ -28,6 +28,8 @@ namespace Garage2.Migrations
                 new VehicleType {Name = "Plane", Size = 2}
             };
 
+            context.SaveChanges();
+
 
             var members = new[] {
                 new Member {Name = "Borat", PhoneNumber = "08-7778899", Email = "notv@lid.com", RegisterDate = DateTime.Now.AddDays(-1)},
@@ -37,10 +39,12 @@ namespace Garage2.Migrations
             };
 
             context.Members.AddOrUpdate(m => m.Name, members);
+            context.SaveChanges();
+
             context.VehicleTypes.AddOrUpdate(vt => vt.Name, vehicleTypes);
 
             context.SaveChanges();
-            
+
             context.Vehicles.AddOrUpdate(v => v.LicensePlate,
                 new Vehicle { Owner = members[1], Type = vehicleTypes[1], LicensePlate = "HFG123", Color = "Red", Brand = "Benz", Model = "C200", WheelAmount = 4, CheckInTime = DateTime.Now },
                 new Vehicle { Owner = members[0], Type = vehicleTypes[0], LicensePlate = "PKL347", Color = "Blue", Brand = "Titanic", Model = "RC3000", WheelAmount = 0, CheckInTime = DateTime.Now.AddHours(-2) },
@@ -48,7 +52,7 @@ namespace Garage2.Migrations
                 new Vehicle { Owner = members[2], Type = vehicleTypes[2], LicensePlate = "SLE752", Color = "Yellow", Brand = "Honda", Model = "1200", WheelAmount = 2, CheckInTime = DateTime.Now.AddSeconds(-120) },
                 new Vehicle { Owner = members[2], Type = vehicleTypes[0], LicensePlate = "WETSEA", Color = "White", Brand = "SeaBird", Model = "2000", WheelAmount = 0, CheckInTime = DateTime.Now.AddMinutes(-85) }
             );
-            
+
         }
     }
 }

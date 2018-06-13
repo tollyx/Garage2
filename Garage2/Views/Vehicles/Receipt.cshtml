@@ -11,7 +11,15 @@
 
     <hr />
     <dl class="dl-horizontal">
-        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+           
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.Name)
+        </dd>
 
 
         <dt>
@@ -38,9 +46,9 @@
         <dd>
             @if (ViewBag.Duration.Days > 0)
 
-            {
-                <span>@ViewBag.Duration.Days days, </span>
-            }
+        {
+            <span>@ViewBag.Duration.Days days, </span>
+    }
 
             <span style="color:#ff6a00"> @ViewBag.Duration.Hours hours, @ViewBag.Duration.Minutes minutes</span>
         </dd>

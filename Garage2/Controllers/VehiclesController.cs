@@ -12,13 +12,25 @@ namespace Garage2.Models
     public class VehiclesController : Controller
     {
         private GarageContext db = new GarageContext();
+       
 
         // GET: Vehicles
         public ActionResult Index(string sortOrder)
         {
 
             ViewBag.Now = DateTime.Now;
+
+
             
+              
+
+
+
+
+
+
+
+
             ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
             ViewBag.VehicleOwnerSortParm = sortOrder == "Owner" ? "owner_desc" : "Owner";
             ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";
@@ -59,6 +71,9 @@ namespace Garage2.Models
                     vehicles = vehicles.OrderBy(v => v.CheckInTime);
                     break;
             }
+
+            ViewBag.Now = DateTime.Now;
+            ViewBag.PricePerHour = 20;
 
             return View(vehicles.ToList());
         }

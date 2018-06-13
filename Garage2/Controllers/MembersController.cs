@@ -46,10 +46,14 @@ namespace Garage2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,PhoneNumber,Email,RegisterDate")] Member member)
+        public ActionResult Create([Bind(Include = "Name,PhoneNumber,Email")] Member member)
         {
             if (ModelState.IsValid)
             {
+                if (db.Members.Any(m => m.Email.ToLower() == member.Email.ToLower())) {
+                    return View(member);
+                }
+
                 member.RegisterDate = DateTime.Now;
                 db.Members.Add(member);
                 db.SaveChanges();
@@ -83,6 +87,9 @@ namespace Garage2.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.Members.Any(m => m.Id != member.Id && m.Email == member.Email)) {
+                    return View(member);
+                }
                 db.Entry(member).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -102,6 +109,13 @@ namespace Garage2.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CanDelete = false;
+
+            if (db.Vehicles.All(v => v.Owner.Id != member.Id)) {
+                ViewBag.CanDelete = true;
+            }
+
             return View(member);
         }
 
@@ -111,6 +125,12 @@ namespace Garage2.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Member member = db.Members.Find(id);
+
+            if (db.Vehicles.Any(v => v.Owner.Id == member.Id)) {
+                ViewBag.CanDelete = false;
+                return View(member);
+            }
+
             db.Members.Remove(member);
             db.SaveChanges();
             return RedirectToAction("Index");

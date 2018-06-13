@@ -165,6 +165,10 @@ namespace Garage2.Models
         {
             if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
             {
+                if (db.Vehicles.Any(v => v.LicensePlate == vehicle.LicensePlate)) {
+                    return View(vehicle);
+                }
+
                 vehicle.Owner = db.Members.First(m => m.Id == ownerId);
                 vehicle.Type = db.VehicleTypes.First(t => t.Id == typeId);
                 vehicle.CheckInTime = DateTime.Now;
@@ -202,6 +206,9 @@ namespace Garage2.Models
         {
             if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
             {
+                if (db.Vehicles.Any(v => v.Id != vehicle.Id && v.LicensePlate == vehicle.LicensePlate)) {
+                    return View(vehicle);
+                }
                 vehicle.Owner = db.Members.First(m => m.Id == ownerId);
                 vehicle.Type = db.VehicleTypes.First(t => t.Id == typeId);
                 db.Entry(vehicle).State = EntityState.Modified;

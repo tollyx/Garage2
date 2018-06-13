@@ -1,16 +1,16 @@
 ﻿@model Garage2.Models.Member
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit member";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Member</h4>
         <hr />

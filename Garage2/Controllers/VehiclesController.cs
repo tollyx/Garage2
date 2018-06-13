@@ -161,21 +161,16 @@ namespace Garage2.Models
             Vehicle vehicle = db.Vehicles.Find(id);
             db.Vehicles.Remove(vehicle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Receipt", vehicle);
         }
 
-        public ActionResult Receipt(int? id)
+        public ActionResult Receipt(Vehicle vehicle)
         {
 
-            Vehicle vehicle = db.Vehicles.Find(id);
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            vehicle = db.Vehicles.Find(id);
+            //Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var now = DateTime.Now;
             var duration = DateTime.Now - vehicle.CheckInTime;
@@ -184,7 +179,6 @@ namespace Garage2.Models
             ViewBag.Price = duration.TotalHours * 20;
 
             return View(vehicle);
-
         }
 
         protected override void Dispose(bool disposing)

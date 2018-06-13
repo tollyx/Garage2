@@ -24,9 +24,7 @@ namespace Garage2.Models
             ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";
             ViewBag.VehicleParkingSortParm = sortOrder == "checkInTime_desc" ? "CheckInTime" : "checkInTime_desc";
 
-            var vehicles = from v in db.Vehicles
-                           select v;
-         
+            IEnumerable<Vehicle> vehicles = db.Vehicles;
 
             switch (sortOrder)
             {
@@ -58,6 +56,78 @@ namespace Garage2.Models
                 default:
                     vehicles = vehicles.OrderBy(v => v.CheckInTime);
                     break;
+            }
+
+            return View(vehicles.ToList());
+        }
+
+        // GET: Vehicles/DetailedOverview
+        public ActionResult DetailedOverview(string sortOrder) {
+
+            ViewBag.Now = DateTime.Now;
+
+            ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "Type_desc" : "Type";
+            ViewBag.VehicleSizeSortParm = sortOrder == "Size" ? "Size_desc" : "Size";
+            ViewBag.VehicleOwnerSortParm = sortOrder == "Owner" ? "Owner_desc" : "Owner";
+            ViewBag.VehicleRegisterSortParm = sortOrder == "Register" ? "Register_desc" : "Register";
+            ViewBag.VehiclePhoneSortParm = sortOrder == "Phone" ? "Phone_desc" : "Phone";
+            ViewBag.VehicleEmailSortParm = sortOrder == "Email" ? "Email_desc" : "Email";
+            ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "LicensePlate_desc" : "LicensePlate";
+            ViewBag.VehicleBrandSortParm = sortOrder == "Brand" ? "Brand_desc" : "Brand";
+            ViewBag.VehicleModelSortParm = sortOrder == "Model" ? "Model_desc" : "Model";
+            ViewBag.VehicleColorSortParm = sortOrder == "Color" ? "Color_desc" : "Color";
+            ViewBag.VehicleWheelsSortParm = sortOrder == "Wheels" ? "Wheels_desc" : "Wheels";
+            ViewBag.VehicleParkingSortParm = sortOrder == "CheckInTime_desc" ? "CheckInTime" : "CheckInTime_desc";
+
+            IEnumerable<Vehicle> vehicles = db.Vehicles;
+
+            bool reverse = false;
+            if (sortOrder?.EndsWith("_desc") ?? false) {
+                reverse = true;
+                sortOrder = sortOrder.Substring(0, sortOrder.Length - "_desc".Length);
+            }
+
+            switch (sortOrder) {
+                default:
+                case "CheckInTime":
+                    vehicles = vehicles.OrderBy(v => v.CheckInTime);
+                    break;
+                case "Type":
+                    vehicles = vehicles.OrderBy(v => v.Type.Name);
+                    break;
+                case "Size":
+                    vehicles = vehicles.OrderBy(v => v.Type.Size);
+                    break;
+                case "Owner":
+                    vehicles = vehicles.OrderBy(v => v.Owner.Name);
+                    break;
+                case "Phone":
+                    vehicles = vehicles.OrderBy(v => v.Owner.PhoneNumber);
+                    break;
+                case "Email":
+                    vehicles = vehicles.OrderBy(v => v.Owner.Email);
+                    break;
+                case "Register":
+                    vehicles = vehicles.OrderBy(v => v.Owner.RegisterDate);
+                    break;
+                case "LicensePlate":
+                    vehicles = vehicles.OrderBy(v => v.LicensePlate);
+                    break;
+                case "Brand":
+                    vehicles = vehicles.OrderBy(v => v.Brand);
+                    break;
+                case "Color":
+                    vehicles = vehicles.OrderBy(v => v.Color);
+                    break;
+                case "Model":
+                    vehicles = vehicles.OrderBy(v => v.Model);
+                    break;
+                case "Wheels":
+                    vehicles = vehicles.OrderBy(v => v.WheelAmount);
+                    break;
+            }
+            if (reverse) {
+                vehicles = vehicles.Reverse();
             }
 
             return View(vehicles.ToList());

@@ -1,4 +1,4 @@
-﻿@model Garage2.Models.Vehicle
+﻿@model Garage2.Models.Receipt
 
 @{
     ViewBag.Title = "Receipt";
@@ -11,24 +11,40 @@
 
     <hr />
     <dl class="dl-horizontal">
-        
-
 
         <dt>
-            @Html.DisplayNameFor(model => model.LicensePlate)
+            @Html.DisplayNameFor(reciept => reciept.Owner)
+
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LicensePlate)
+            @Html.DisplayFor(receipt => receipt.Owner)
         </dd>
 
 
         <dt>
-            @Html.DisplayNameFor(model => model.CheckInTime)
+            @Html.DisplayNameFor(receipt => receipt.LicensePlate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CheckInTime)
+            @Html.DisplayFor(receipt => receipt.LicensePlate)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(receipt => receipt.CheckInTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(receipt => receipt.CheckInTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(receipt => receipt.CheckOutTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(receipt => receipt.CheckOutTime)
         </dd>
 
         <dt>
@@ -36,13 +52,13 @@
         </dt>
 
         <dd>
-            @if (ViewBag.Duration.Days > 0)
+            @if (Model.ParkDuration.Days > 0)
 
-            {
-                <span>@ViewBag.Duration.Days days, </span>
-            }
+        {
+            <span>@Model.ParkDuration.Days days, </span>
+    }
 
-            <span style="color:#ff6a00"> @ViewBag.Duration.Hours hours, @ViewBag.Duration.Minutes minutes</span>
+            <span style="color:#ff6a00"> @Model.ParkDuration.Hours hours, @Model.ParkDuration.Minutes minutes</span>
         </dd>
 
 
@@ -51,7 +67,7 @@
         </dt>
 
         <dd>
-            @ViewBag.Price.ToString("0.00") SEK
+            @Model.Price.ToString("0.00") SEK
         </dd>
     </dl>
 </div>

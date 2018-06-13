@@ -28,11 +28,16 @@
             <th>
                 @Html.ActionLink("Parking time", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
             </th>
-            <th></th>
+            <th>
+                @Html.ActionLink("Pay status", "Index", new { sortOrder = ViewBag.VehicleParkingSortParm })
+
+
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr class="vehiclerow">
             @{
                 var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;
@@ -52,6 +57,17 @@
                 }
                 <span style="color:#ff6a00"> @Duration.Hours hours, @Duration.Minutes minutes</span>
             </td>
+
+
+
+            <td>
+
+
+                @((((DateTime)ViewBag.Now - item.CheckInTime).TotalHours * (float)ViewBag.PricePerHour).ToString("0.00")) SEK
+
+            </td>
+           
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

@@ -12,13 +12,25 @@ namespace Garage2.Models
     public class VehiclesController : Controller
     {
         private GarageContext db = new GarageContext();
+       
 
         // GET: Vehicles
         public ActionResult Index(string sortOrder)
         {
 
             ViewBag.Now = DateTime.Now;
+
+
             
+              
+
+
+
+
+
+
+
+
             ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
             ViewBag.VehicleOwnerSortParm = sortOrder == "Owner" ? "owner_desc" : "Owner";
             ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";
@@ -57,6 +69,9 @@ namespace Garage2.Models
                     vehicles = vehicles.OrderBy(v => v.CheckInTime);
                     break;
             }
+
+            ViewBag.Now = DateTime.Now;
+            ViewBag.PricePerHour = 20;
 
             return View(vehicles.ToList());
         }
@@ -239,27 +254,45 @@ namespace Garage2.Models
         public ActionResult DeleteConfirmed(int id)
         {
             Vehicle vehicle = db.Vehicles.Find(id);
+            
+
+            var receipt = new Receipt();
+
+            receipt.LicensePlate = vehicle.LicensePlate;
+            receipt.CheckInTime = vehicle.CheckInTime;
+            receipt.CheckOutTime = DateTime.Now;
+            receipt.Owner = vehicle.Owner?.Name;
+            receipt.ParkDuration = receipt.CheckOutTime - receipt.CheckInTime;
+            receipt.Price = receipt.ParkDuration.TotalHours * 20;
+
             db.Vehicles.Remove(vehicle);
             db.SaveChanges();
-            return RedirectToAction("Receipt", vehicle);
+
+            return RedirectToAction("Receipt", receipt);
         }
 
-        public ActionResult Receipt(Vehicle vehicle)
+
+        public ActionResult Receipt (Receipt receipt)
         {
-
-            //Vehicle vehicle = db.Vehicles.Find(id);
-            if (vehicle == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var now = DateTime.Now;
-            var duration = DateTime.Now - vehicle.CheckInTime;
-            ViewBag.Now = now;
-            ViewBag.Duration = duration;
-            ViewBag.Price = duration.TotalHours * 20;
-
-            return View(vehicle);
+            return View(receipt);
         }
+
+        //public ActionResult Receipt(Vehicle vehicle)
+        //{
+
+        //    //Vehicle vehicle = db.Vehicles.Find(id);
+        //    if (vehicle == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var now = DateTime.Now;
+        //    var duration = DateTime.Now - vehicle.CheckInTime;
+        //    ViewBag.Now = now;
+        //    ViewBag.Duration = duration;
+        //    ViewBag.Price = duration.TotalHours * 20;
+
+        //    return View(vehicle);
+        //}
 
         protected override void Dispose(bool disposing)
         {

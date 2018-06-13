@@ -19,18 +19,7 @@ namespace Garage2.Models
         {
 
             ViewBag.Now = DateTime.Now;
-
-
             
-              
-
-
-
-
-
-
-
-
             ViewBag.VehicleTypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
             ViewBag.VehicleOwnerSortParm = sortOrder == "Owner" ? "owner_desc" : "Owner";
             ViewBag.VehicleLicensePlateSortParm = sortOrder == "LicensePlate" ? "licensePlate_desc" : "LicensePlate";

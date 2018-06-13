@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var applicationName = "Garage 2.5";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title-Garage</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -18,8 +22,8 @@
             </button>
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">@Html.ActionLink("All Vehicles", "Index", "Vehicles", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Park a Vehicle", "Create", "Vehicles", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("All vehicles", "Index", "Vehicles", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Park a new vehicle", "Create", "Vehicles", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Members", "Index", "Members", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
@@ -29,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year – @applicationName</p>
         </footer>
     </div>
 

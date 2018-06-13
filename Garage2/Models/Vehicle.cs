@@ -13,7 +13,7 @@ namespace Garage2.Models {
         [DisplayName("Vehicle type")]
         public virtual VehicleType Type { get; set; }
         [DisplayName("License plate")]
-        [StringLength(6, ErrorMessage = "6 character! and the three first shoud be Alphabet", MinimumLength = 6)]
+        [StringLength(6, ErrorMessage = "6 character! And the three first shoud be Alphabet", MinimumLength = 6)]
         public string LicensePlate { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }

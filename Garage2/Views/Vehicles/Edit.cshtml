@@ -1,16 +1,20 @@
-﻿@model Garage2.Models.Vehicle
-
-@{
-    ViewBag.Title = "Edit";
+﻿@{
+    var pageName = "Edit vehicle";
 }
 
-<h2>Edit</h2>
+@model Garage2.Models.Vehicle
+
+@{
+    ViewBag.Title = @pageName;
+}
+
+<h2>@pageName</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Vehicle</h4>
         <hr />
@@ -20,8 +24,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Type.Name, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 

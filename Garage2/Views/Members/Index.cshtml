@@ -31,8 +31,7 @@
     </thead>
 
     <tbody>
-        @foreach (var item in Model)
-        {
+        @foreach (var item in Model) {
             var cssclass = "";
             if (ViewBag.HighLightId == item.Id) {
                 cssclass = "alert-success";
@@ -62,4 +61,6 @@
 
 </table>
 
-<script src="~/Scripts/TableFilter.js"></script>
+@section Scripts {
+    @Scripts.Render("~/Scripts/TableFilter.js")
+}

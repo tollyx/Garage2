@@ -250,7 +250,7 @@ namespace Garage2.Models
             Vehicle vehicle = db.Vehicles.Find(id);
             
 
-            var receipt = new Receipt();
+            var receipt = new ReceiptModelView();
 
             receipt.LicensePlate = vehicle.LicensePlate;
             receipt.CheckInTime = vehicle.CheckInTime;
@@ -266,7 +266,7 @@ namespace Garage2.Models
         }
 
 
-        public ActionResult Receipt (Receipt receipt)
+        public ActionResult Receipt (ReceiptModelView receipt)
         {
             return View(receipt);
         }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Garage2.Models
 {
-    public class Receipt
+    public class ReceiptModelView
     {
         public string Owner { get; set; }
         [DisplayName("License plate")]

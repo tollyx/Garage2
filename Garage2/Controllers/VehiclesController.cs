@@ -171,6 +171,8 @@ namespace Garage2.Models
             if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
             {
                 if (db.Vehicles.Any(v => v.LicensePlate == vehicle.LicensePlate)) {
+                    ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
+                    ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
                     return View(vehicle);
                 }
 

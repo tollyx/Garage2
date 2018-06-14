@@ -15,8 +15,9 @@ namespace Garage2.Controllers
         private GarageContext db = new GarageContext();
 
         // GET: Members
-        public ActionResult Index()
+        public ActionResult Index(int? highlightId)
         {
+            ViewBag.HighLightId = highlightId;
             return View(db.Members.ToList());
         }
 
@@ -57,7 +58,7 @@ namespace Garage2.Controllers
                 member.RegisterDate = DateTime.Now;
                 db.Members.Add(member);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { highlightId = member.Id });
             }
 
             return View(member);
@@ -92,7 +93,7 @@ namespace Garage2.Controllers
                 }
                 db.Entry(member).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { highlightId = member.Id });
             }
             return View(member);
         }

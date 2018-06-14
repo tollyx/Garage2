@@ -15,7 +15,7 @@ namespace Garage2.Models
        
 
         // GET: Vehicles
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, int? highlightId)
         {
 
             ViewBag.Now = DateTime.Now;
@@ -61,6 +61,7 @@ namespace Garage2.Models
 
             ViewBag.Now = DateTime.Now;
             ViewBag.PricePerHour = 20;
+            ViewBag.HighLightId = highlightId;
 
             return View(vehicles.ToList());
         }
@@ -178,7 +179,7 @@ namespace Garage2.Models
                 vehicle.CheckInTime = DateTime.Now;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { highlightId = vehicle.Id });
             }
 
             return View(vehicle);
@@ -206,19 +207,36 @@ namespace Garage2.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,LicensePlate,Color,Brand,Model,WheelAmount,CheckInTime")] Vehicle vehicle, String Owner, String Type)
+        public ActionResult Edit([Bind(Include = "Id,LicensePlate,Color,Brand,Model,WheelAmount,CheckInTime")] Vehicle vehicle, String Owner, String Type)
         {
             if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
             {
                 if (db.Vehicles.Any(v => v.Id != vehicle.Id && v.LicensePlate == vehicle.LicensePlate)) {
+                    ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
+                    ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
                     return View(vehicle);
                 }
-                vehicle.Owner = db.Members.First(m => m.Id == ownerId);
-                vehicle.Type = db.VehicleTypes.First(t => t.Id == typeId);
-                db.Entry(vehicle).State = EntityState.Modified;
+                
+                vehicle.Owner = db.Members.FirstOrDefault(m => m.Id == ownerId);
+                vehicle.Type = db.VehicleTypes.FirstOrDefault(t => t.Id == typeId);
+
+                var vehicleToUpdate = db.Vehicles.First(v => v.Id == vehicle.Id);
+
+                vehicleToUpdate.LicensePlate = vehicle.LicensePlate;
+                vehicleToUpdate.Owner = vehicle.Owner;
+                vehicleToUpdate.Type = vehicle.Type;
+                vehicleToUpdate.Model = vehicle.Model;
+                vehicleToUpdate.Color = vehicle.Color;
+                vehicleToUpdate.Brand = vehicle.Brand;
+                vehicleToUpdate.WheelAmount = vehicle.WheelAmount;
+                
+
+                db.Entry(vehicleToUpdate).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { highlightId = vehicle.Id });
             }
+            ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
+            ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
             return View(vehicle);
         }
 

@@ -197,47 +197,34 @@ namespace Garage2.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
-            ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
+            ViewBag.members = new SelectList(db.Members, "Id", "Name", vehicle.Owner.Id);
+            ViewBag.vehicletypes = new SelectList(db.VehicleTypes, "Id", "Name", vehicle.Type.Id);
             return View(vehicle);
         }
 
         // POST: Vehicles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,LicensePlate,Color,Brand,Model,WheelAmount,CheckInTime")] Vehicle vehicle, String Owner, String Type)
+        public ActionResult EditVehicle(int? id, [Bind(Prefix = "Type.Id")]int? TypeId, [Bind(Prefix = "Owner.Id")]int? OwnerId)
         {
-            if (ModelState.IsValid && int.TryParse(Owner, out int ownerId) && int.TryParse(Type, out int typeId))
-            {
-                if (db.Vehicles.Any(v => v.Id != vehicle.Id && v.LicensePlate == vehicle.LicensePlate)) {
-                    ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
-                    ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
-                    return View(vehicle);
-                }
-                
-                vehicle.Owner = db.Members.FirstOrDefault(m => m.Id == ownerId);
-                vehicle.Type = db.VehicleTypes.FirstOrDefault(t => t.Id == typeId);
-
-                var vehicleToUpdate = db.Vehicles.First(v => v.Id == vehicle.Id);
-
-                vehicleToUpdate.LicensePlate = vehicle.LicensePlate;
-                vehicleToUpdate.Owner = vehicle.Owner;
-                vehicleToUpdate.Type = vehicle.Type;
-                vehicleToUpdate.Model = vehicle.Model;
-                vehicleToUpdate.Color = vehicle.Color;
-                vehicleToUpdate.Brand = vehicle.Brand;
-                vehicleToUpdate.WheelAmount = vehicle.WheelAmount;
-                
-
-                db.Entry(vehicleToUpdate).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { highlightId = vehicle.Id });
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.members = db.Members.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() }).ToList();
-            ViewBag.vehicletypes = db.VehicleTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
-            return View(vehicle);
+
+            var vehicleToUpdate = db.Vehicles.FirstOrDefault(v => v.Id == id);
+
+            if (TypeId != null && OwnerId != null && TryUpdateModel(vehicleToUpdate, new[] { "LicensePlate", "Brand", "Model", "Color", "WheelAmount" })) {
+                vehicleToUpdate.Owner = db.Members.FirstOrDefault(m => m.Id == OwnerId);
+                vehicleToUpdate.Type = db.VehicleTypes.FirstOrDefault(t => t.Id == TypeId);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { highlightId = id });
+            }
+
+            ViewBag.members = new SelectList(db.Members, "Id", "Name", TypeId);
+            ViewBag.vehicletypes = new SelectList(db.VehicleTypes, "Id", "Name", OwnerId);
+            return View(vehicleToUpdate);
         }
 
         // GET: Vehicles/Delete/5

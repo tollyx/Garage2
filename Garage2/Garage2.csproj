@@ -160,7 +160,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GarageContext.cs" />
     <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\ReceiptViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Models\VehicleType.cs" />

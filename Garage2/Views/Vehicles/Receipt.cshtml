@@ -48,12 +48,12 @@
             Parking time
         </dt>
 
-        <dd>
+        <dd style="color:#ff6a00">
             @if (Model.ParkDuration.Days > 0)
             {
                 <span>@Model.ParkDuration.Days days, </span>
             }
-            <span style="color:#ff6a00"> @Model.ParkDuration.Hours hours, @Model.ParkDuration.Minutes minutes</span>
+            <span> @Model.ParkDuration.Hours hours, @Model.ParkDuration.Minutes minutes</span>
         </dd>
 
 

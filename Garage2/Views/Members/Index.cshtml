@@ -33,7 +33,12 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            var cssclass = "";
+            if (ViewBag.HighLightId == item.Id) {
+                cssclass = "alert-success";
+            }
+
+            <tr class="@cssclass">
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>

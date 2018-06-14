@@ -38,6 +38,7 @@
         if (ViewBag.HighLightId == item.Id) {
             cssclass = "alert-success";
         }
+
         <tr class="@cssclass">
             @{
                 var Duration = ((System.DateTime)ViewBag.Now) - item.CheckInTime;

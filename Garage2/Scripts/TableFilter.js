@@ -1,8 +1,8 @@
 ﻿
-let vehicleTable = document.getElementById('vehicleTable');
+let searchableTable = document.getElementById('searchableTable');
 
 function TableFilter(filter) {
-    let rows = vehicleTable.querySelectorAll('tbody tr');
+    let rows = searchableTable.querySelectorAll('tbody tr');
     if (rows == null) return;
     filter = filter.toLowerCase();
     for (var i = 0; i < rows.length; i++) {
